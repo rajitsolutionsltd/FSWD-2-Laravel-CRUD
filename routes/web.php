@@ -55,7 +55,7 @@ Route::post('user/store', function(Request $request){
 Route::post('user/update/{id}', function(Request $request, $id){
 
     $validator = Validator::make($request->all(), [
-        'name' => 'required|max:50',
+        'name' => 'required|max:100',
         'email' => 'required|email',
         'password' => 'required|confirmed'
     ]);
