@@ -22,6 +22,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Father Name</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Updated At</th>
                         <th scope="col">Actions</th>
@@ -33,6 +34,7 @@
                         <td scope="row">{{ $user->id }}</td>
                         <td scope="row">{{ $user->name }}</td>
                         <td>{{$user->email}}</td>
+                        <td>{{$user->userDetail->father_name ?? null}}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
 

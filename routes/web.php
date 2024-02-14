@@ -3,81 +3,23 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Validator;
 
 Route::get('/', function (){
     return view('pages.home');
 });
 
-Route::get('/users', function (){
-    $users = User::all();
-    return view('pages.users', compact('users'));
-});
+Route::get('/users', [UserController::class, 'index']);
 
-Route::get('/user/{id}/show', function ($id){
-    $user = User::findOrFail($id);
-    return view('pages.user_details', compact('user'));
-});
+Route::get('/user/{id}/show', [UserController::class, 'show']);
 
-Route::get('/user/{id}/edit', function ($id){
-    $user = User::findOrFail($id);
-    return view('pages.user_edit', compact('user'));
-});
+Route::get('/user/{id}/edit',  [UserController::class, 'edit']);
 
-Route::get('user/create', function(){
-    return view('pages.user_create');
-});
+Route::get('user/create', [UserController::class, 'create']);
 
-Route::post('user/store', function(Request $request){
+Route::post('user/store', [UserController::class, 'store']);
 
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:50',
-        'email' => 'required|email',
-        'password' => 'required|confirmed'
-    ]);
+Route::post('user/update/{id}', [UserController::class, 'update']);
 
-    if ($validator->fails()) {
-        return redirect('/user/create')
-                    ->withErrors($validator)
-                    ->withInput();
-    }
-    
-    $user = new User();
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->save();
-
-    return redirect()->to('/users')->with('success', 'User created successfully');
-});
-
-
-Route::post('user/update/{id}', function(Request $request, $id){
-
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:100',
-        'email' => 'required|email',
-        'password' => 'required|confirmed'
-    ]);
-
-    if ($validator->fails()) {
-        return redirect("/user/$id/edit")
-                    ->withErrors($validator)
-                    ->withInput();
-    }
-
-    $user = User::find($id);
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->save();
-    return redirect()->to('/users')->with('success', 'User Updated successfully');
-
-});
-
-Route::post('user/{id}/delete', function($id){
-    $user = User::find($id);
-    $user->delete();
-
-    return redirect()->to('/users')->with('success', 'User Deleted successfully');
-});
+Route::post('user/{id}/delete', [UserController::class, 'destroy']);

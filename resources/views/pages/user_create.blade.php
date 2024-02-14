@@ -43,6 +43,11 @@
                         <input type="password" name="password_confirmation" class="form-control">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="" class="form-label">Father Name</label>
+                        <input type="text" name="father_name" class="form-control">
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Add New</button>
                     <a href="{{ url('users') }}" class="btn btn-warning">Back To User List</a>
                     
