@@ -55,7 +55,7 @@ class UserController extends Controller
         $detail->user_id = $user->id;
         $detail->save();
 
-        return redirect()->to('/users')->with('success', 'User created successfully');
+        return redirect()->to('/user')->with('success', 'User created successfully');
     }
 
     /**
@@ -109,6 +109,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->to('/users')->with('success', 'User Deleted successfully');
+        return redirect()->to('/user')->with('success', 'User Deleted successfully');
     }
 }

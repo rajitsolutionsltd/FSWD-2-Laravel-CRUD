@@ -10,16 +10,4 @@ Route::get('/', function (){
     return view('pages.home');
 });
 
-Route::get('/users', [UserController::class, 'index']);
-
-Route::get('/user/{id}/show', [UserController::class, 'show']);
-
-Route::get('/user/{id}/edit',  [UserController::class, 'edit']);
-
-Route::get('user/create', [UserController::class, 'create']);
-
-Route::post('user/store', [UserController::class, 'store']);
-
-Route::post('user/update/{id}', [UserController::class, 'update']);
-
-Route::post('user/{id}/delete', [UserController::class, 'destroy']);
+Route::resource('user', UserController::class);
